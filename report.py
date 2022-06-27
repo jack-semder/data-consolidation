@@ -3,6 +3,7 @@ import csv
 # Reads first three files
 # this works
 def read_file(f):
+    headers = []
     contents = []
     with open(f, newline='') as csv_f:
         reader = csv.reader(csv_f, delimiter=',')
@@ -28,21 +29,48 @@ def whole_df(f1, f2, f3):
     file_contents["file2"] = file2
     file_contents["file3"] = file3
 
-    return file_contents # three keys 
+    li = []
+    for row in file2:
+        row = list(row)
 
-# Getting data ready for output files
-def gross_revenue_calculations():
-    
-# Setup and return output files
-def outputs():
-    pass
+    return file_contents # DICTIONARY VALUES NEED TO BE STR -> LIST
+
+
+def gross_revenue():
+    quants = []
+    priceper_u = []
+    lot_size = []
+
+    gross_rev = []
+
+    for row in whole_df("team_map.csv", "product_master.csv", "sales.csv")["file2"]:
+        row = list(row)
+        priceper_u.append(float(row[2]))
+        lot_size.append(int(row[3]))
+
+
+    for row in whole_df("team_map.csv", "product_master.csv", "sales.csv")["file3"]:
+        row = list(row)
+        #quants.append(int(row[3]))
+
+    #print(priceper_u)
+    #for item in priceper_u:
+        #print(type(item))
+    '''for num in quants:
+        for num2 in priceper_u:
+            first = num * num2
+            for num3 in lot_size:
+                second = first * num3
+                gross_rev.append(second)'''
+
+
+    return gross_rev
 
 # Combine all proccesses
 def main():
-    files = whole_df("team_map.csv", "product_master.csv", "sales.csv")
+    records1 = read_file("team_map.csv")
+    records2 = read_file("product_master.csv")
+    records3 = read_file("sales.csv")
 
-    with open('team_report.csv', 'w', newline='') as csvf:
-        writer = csv.writer(csvf, delimiter=',')
-
-        writer.writerow(files["file1"][0][1] + grossRevenue)
-
+    for team_id, name in records1:
+        pass
